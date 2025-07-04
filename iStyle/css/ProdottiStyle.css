@@ -1,0 +1,264 @@
+/* Reset base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Layout principale */
+.catalogo-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f8f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* Sidebar filtri */
+.sidebar {
+    width: 260px;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    padding: 24px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.filtri-lista {
+    list-style: none;
+}
+
+.filtri-lista li {
+    margin-bottom: 18px;
+}
+
+.filtro-btn {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #f1f1f1;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.filtro-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.filtro-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.menu-filtri {
+    display: none;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+
+.menu-filtri label {
+    display: block;
+    margin: 6px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+/* Slider prezzo */
+.filter__label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.filter__input {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.filter__slider-price {
+    margin-top: 12px;
+}
+
+/* Griglia prodotti */
+.griglia-prodotti {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+    padding: 30px;
+}
+
+/* Card prodotto */
+.card-prodotto {
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 18px;
+    overflow: hidden;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: box-shadow 0.3s ease;
+    height: 70%;
+    min-height: 70%;
+}
+
+.card-prodotto:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+}
+
+/* Immagine prodotto */
+.img-prodotto {
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+/* Nome prodotto */
+.nome-prodotto {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+/* Prezzo */
+.prezzo {
+    font-weight: bold;
+    font-size: 18px;
+    color: #222;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+/* Prezzo barrato */
+.prezzo-scontato {
+    font-size: 14px;
+    color: #888;
+    text-decoration: line-through;
+    margin-left: 6px;
+}
+
+/* Pulsante aggiungi al carrello */
+.btn-carrello {
+    background-color: #0060df;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: transform 0.2s ease, background-color 0.3s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-carrello:hover {
+    background-color: #004bb5;
+    transform: scale(1.05);
+}
+
+.carrello-icon {
+    width: 22px;
+    height: 22px;
+}
+
+/* Pulsante cuore */
+.cuore-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.2s ease;
+    z-index: 2;
+}
+
+.cuore-btn:hover {
+    transform: scale(1.1);
+}
+
+.cuore-icon {
+    width: 22px;
+    height: 22px;
+}
+
+/* Badge */
+.badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+
+.badge-ora {
+    background-color: #f76b00;
+}
+
+.badge-green {
+    background-color: #4CAF50;
+}
+
+.badge-yellow {
+    background-color: #FFCE00;
+}
+
+/* Pulsante "Confronta" */
+.btn-confronta {
+    font-size: 13px;
+    color: #666;
+    margin-top: 6px;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .catalogo-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+        padding: 15px;
+    }
+
+    .griglia-prodotti {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        padding: 20px;
+    }
+
+    .img-prodotto {
+        height: 120px;
+    }
+}
