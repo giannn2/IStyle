@@ -15,20 +15,16 @@
 <div id="tsparticles"></div>
 
 <!-- Carosello 3D -->
-<section class="pene">
-<div id="drag-container">
-  <div id="spin-container">
-    <img src="img/covers/Fast&Furious.png" alt="Fast & Furious">
-    <img src="img/covers/Harry-Potter.png" alt="Harry Potter">
-    <img src="img/covers/Hello-Kitty.png" alt="Hello Kitty">
-    <img src="img/covers/Naruto.png" alt="Naruto">
-    <img src="img/covers/Nasa.png" alt="NASA">
-  </div>
-  <div id="ground"></div>
+<div class="container">
+ <main class="sliders-container">
+<ul class="pagination">
+            <li class="pagination__item"><a class="pagination__button"></a></li>
+            <li class="pagination__item"><a class="pagination__button"></a></li>
+            <li class="pagination__item"><a class="pagination__button"></a></li>
+            <li class="pagination__item"><a class="pagination__button"></a></li>
+        </ul>
+    </main>
 </div>
-</section>
-
-
 
 <section class="product-section">
     <h2 class="section-title">Le nostre cover</h2>
