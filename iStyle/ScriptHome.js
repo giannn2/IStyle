@@ -71,7 +71,8 @@ function changeCover(imageName, altText, bgColor, clickedButton, productId) {
         coverLink.href = 'DettaglioProdotto.jsp?product=' + productId;
     }, 300);
 
-(function() {
+
+//carosello(function() {
 
     var slidersContainer = document.querySelector('.sliders-container');
 
