@@ -165,6 +165,3 @@ function changeCover(imageName, altText, bgColor, clickedButton, productId) {
     });
 
 })();
-
-}
-
