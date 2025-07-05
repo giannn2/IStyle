@@ -1,98 +1,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="Header.jsp" %>
-
+<!-- Carosello: https://codepen.io/hoanghien0410/pen/MMPaqm?editors=0100 -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>Home - IStyle</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/HomeStyle.css">
+    <script src="${pageContext.request.contextPath}/js/HomeScript.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
+<body class="animated-gradient">
+<!-- Background animato -->
+<div id="tsparticles"></div>
 
-<div class="wrapper">
-  <input checked type=radio name="slider" id="slide1" />
-  <input type=radio name="slider" id="slide2" />
-  <input type=radio name="slider" id="slide3" />
-
-  <div class="slider-wrapper">
-    <div class="inner">
-      <!-- Versione statica -->
-      <article>
-        <div class="slide-bg"></div>
-        <div class="info top-left">
-          <h3>Anime</h3></div>
-        <a href="DettaglioProdotto.jsp?product=Naruto">
-          <img src="img/covers/Naruto.png" />
-        </a>
-      </article>
-      
-      <!-- Versione dinamica  
-      <article>
-        <div class="slide-bg"></div>
-        <div class="info top-left">
-          <h3>${sliderProducts[0].category}</h3></div>
-        <a href="DettaglioProdottoServlet?id=${sliderProducts[0].id}">
-          <img src="ImageServlet?id=${sliderProducts[0].id}" alt="${sliderProducts[0].name}" />
-        </a>
-      </article>
-      -->
-
-      <article>
-        <div class="slide-bg"></div>
-        <div class="info bottom-right">
-          <h3>Film</h3></div>
-        <a href="DettaglioProdotto.jsp?product=FastAndFurious">
-          <img src="img/covers/Fast&Furious.png" />
-        </a>
-      </article>
-      
-      <!-- Versione dinamica  
-      <article>
-        <div class="slide-bg"></div>
-        <div class="info bottom-right">
-          <h3>${sliderProducts[1].category}</h3></div>
-        <a href="DettaglioProdottoServlet?id=${sliderProducts[1].id}">
-          <img src="ImageServlet?id=${sliderProducts[1].id}" alt="${sliderProducts[1].name}" />
-        </a>
-      </article>
-      -->
-
-      <article>
-        <div class="slide-bg"></div>
-        <div class="info bottom-left">
-          <h3>Calcio</h3></div>
-        <a href="DettaglioProdotto.jsp?product=Inter">
-          <img src="img/covers/Inter.png" />
-        </a>
-      </article>
-      
-      <!-- Versione dinamica  
-      <article>
-        <div class="slide-bg"></div>
-        <div class="info bottom-left">
-          <h3>${sliderProducts[2].category}</h3></div>
-        <a href="DettaglioProdottoServlet?id=${sliderProducts[2].id}">
-          <img src="ImageServlet?id=${sliderProducts[2].id}" alt="${sliderProducts[2].name}" />
-        </a>
-      </article>
-      -->
-    </div>
+<!-- Carosello 3D -->
+<section class="pene">
+<div id="drag-container">
+  <div id="spin-container">
+    <img src="img/covers/Fast&Furious.png" alt="Fast & Furious">
+    <img src="img/covers/Harry-Potter.png" alt="Harry Potter">
+    <img src="img/covers/Hello-Kitty.png" alt="Hello Kitty">
+    <img src="img/covers/Naruto.png" alt="Naruto">
+    <img src="img/covers/Nasa.png" alt="NASA">
   </div>
-
-  <div class="slider-prev-next-control">
-    <label for=slide1></label>
-    <label for=slide2></label>
-    <label for=slide3></label>
-  </div>
-
-  <div class="slider-dot-control">
-    <label for=slide1></label>
-    <label for=slide2></label>
-    <label for=slide3></label>
-  </div>
+  <div id="ground"></div>
 </div>
+</section>
+
 
 
 <section class="product-section">
@@ -157,6 +92,8 @@
     </div>
 </section>
 
+
+
 <!-- Script per la versione dinamica (commentato)
 <script>
 // Funzione per cambiare le cover (parte dinamica)
@@ -192,34 +129,9 @@ function changeDynamicCover(categoryId, bgColor, clickedButton) {
 </script>
 -->
 
-<script>
-// Funzione per cambiare le cover (parte statica)
-function changeCover(imageName, altText, bgColor, clickedButton, productId) { 
-    const cover = document.getElementById('current-cover');
-    const coverBg = document.getElementById('cover-bg');
-    const buttons = document.querySelectorAll('.category-btn');
-    
-    // Aggiorna il bottone attivo
-    buttons.forEach(btn => btn.classList.remove('active'));
-    if (clickedButton) {
-        clickedButton.classList.add('active'); 
-    }
-    
-    // Animazione del cambio cover
-    cover.style.opacity = '0';
-    setTimeout(() => {
-        cover.src = '${pageContext.request.contextPath}/img/covers/' + imageName;
-        cover.alt = altText;
-        coverBg.style.backgroundColor = bgColor;
-        cover.style.opacity = '1';
-        
-        // Aggiorna il link della cover
-        const coverLink = cover.parentElement;
-        coverLink.href = 'DettaglioProdotto.jsp?product=' + productId;
-    }, 300);
-}
-</script>
+
+
+<%@ include file="Footer.jsp" %>
 </body>
 </html>
 
-<%@ include file="Footer.jsp" %>
