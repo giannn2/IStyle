@@ -71,115 +71,100 @@ function changeCover(imageName, altText, bgColor, clickedButton, productId) {
         coverLink.href = 'DettaglioProdotto.jsp?product=' + productId;
     }, 300);
 
+(function() {
 
+    var slidersContainer = document.querySelector('.sliders-container');
 
+    // Initializing the numbers slider
+    var msNumbers = new MomentumSlider({
+        el: slidersContainer,
+        cssClass: 'ms--numbers',
+        range: [1, 4],
+        rangeContent: function (i) {
+            return '0' + i;
+        },
+        style: {
+            transform: [{scale: [0.4, 1]}],
+            opacity: [0, 1]
+        },
+        interactive: false
+    });
 
-//script carosello:
+    // Initializing the titles slider
+    var titles = [
+        'King of the Ring Fight',
+        'Sound of Streets',
+        'Urban Fashion',
+        'Windy Sunset'
+    ];
+    var msTitles = new MomentumSlider({
+        el: slidersContainer,
+        cssClass: 'ms--titles',
+        range: [0, 3],
+        rangeContent: function (i) {
+            return '<h3>'+ titles[i] +'</h3>';
+        },
+        vertical: true,
+        reverse: true,
+        style: {
+            opacity: [0, 1]
+        },
+        interactive: false
+    });
 
-// Configurazione
-var radius = 240; // Raggio del carosello
-var autoRotate = true; // Rotazione automatica
-var rotateSpeed = -60; // Velocità di rotazione (secondi per giro completo)
-var imgWidth = 120; // Larghezza elementi
-var imgHeight = 170; // Altezza elementi
+    // Initializing the links slider
+    var msLinks = new MomentumSlider({
+        el: slidersContainer,
+        cssClass: 'ms--links',
+        range: [0, 3],
+        rangeContent: function () {
+            return '<a class="ms-slide__link">View Case</a>';
+        },
+        vertical: true,
+        interactive: false
+    });
 
-// Musica di sottofondo (opzionale)
-var bgMusicURL = null;
-var bgMusicControls = true;
+    // Get pagination items
+    var pagination = document.querySelector('.pagination');
+    var paginationItems = [].slice.call(pagination.children);
 
-// Avvia animazione dopo 1s
-setTimeout(init, 1000);
+    // Initializing the images slider
+    var msImages = new MomentumSlider({
+        // Element to append the slider
+        el: slidersContainer,
+        // CSS class to reference the slider
+        cssClass: 'ms--images',
+        // Generate the 4 slides required
+        range: [0, 3],
+        rangeContent: function () {
+            return '<div class="ms-slide__image-container"><div class="ms-slide__image"></div></div>';
+        },
+        // Syncronize the other sliders
+        sync: [msNumbers, msTitles, msLinks],
+        // Styles to interpolate as we move the slider
+        style: {
+            '.ms-slide__image': {
+                transform: [{scale: [1.5, 1]}]
+            }
+        },
+        // Update pagination if slider change
+        change: function(newIndex, oldIndex) {
+            if (typeof oldIndex !== 'undefined') {
+                paginationItems[oldIndex].classList.remove('pagination__item--active');
+            }
+            paginationItems[newIndex].classList.add('pagination__item--active');
+        }
+    });
 
-var odrag = document.getElementById('drag-container');
-var ospin = document.getElementById('spin-container');
-var aEle = Array.from(ospin.children); // Supporta immagini e video
+    // Select corresponding slider item when a pagination button is clicked
+    pagination.addEventListener('click', function(e) {
+        if (e.target.matches('.pagination__button')) {
+            var index = paginationItems.indexOf(e.target.parentNode);
+            msImages.select(index);
+        }
+    });
 
-// Dimensioni spin-container
-ospin.style.width = imgWidth + "px";
-ospin.style.height = imgHeight + "px";
+})();
 
-// Dimensioni ground se presente
-var ground = document.getElementById('ground');
-if (ground) {
-  ground.style.width = radius * 3 + "px";
-  ground.style.height = radius * 3 + "px";
-}
-
-function init(delayTime) {
-  for (var i = 0; i < aEle.length; i++) {
-    aEle[i].style.transform = "rotateY(" + (i * (360 / aEle.length)) + "deg) translateZ(" + radius + "px)";
-    aEle[i].style.transition = "transform 1s";
-    aEle[i].style.transitionDelay = delayTime || (aEle.length - i) / 4 + "s";
-  }
-}
-
-function applyTransform(obj) {
-  if (tY > 180) tY = 180;
-  if (tY < 0) tY = 0;
-  obj.style.transform = "rotateX(" + (-tY) + "deg) rotateY(" + (tX) + "deg)";
-}
-
-function playSpin(yes) {
-  ospin.style.animationPlayState = yes ? 'running' : 'paused';
-}
-
-// Variabili di controllo rotazione
-var sX, sY, nX, nY, desX = 0,
-    desY = 0,
-    tX = 0,
-    tY = 10;
-
-// Rotazione automatica
-if (autoRotate) {
-  var animationName = (rotateSpeed > 0 ? 'spin' : 'spinRevert');
-  ospin.style.animation = `${animationName} ${Math.abs(rotateSpeed)}s infinite linear`;
-}
-
-// Eventi per il drag con mouse/touch
-document.onpointerdown = function (e) {
-  clearInterval(odrag.timer);
-  e = e || window.event;
-  sX = e.clientX;
-  sY = e.clientY;
-
-  this.onpointermove = function (e) {
-    e = e || window.event;
-    nX = e.clientX;
-    nY = e.clientY;
-    desX = nX - sX;
-    desY = nY - sY;
-    tX += desX * 0.1;
-    tY += desY * 0.1;
-    applyTransform(odrag);
-    sX = nX;
-    sY = nY;
-  };
-
-  this.onpointerup = function () {
-    odrag.timer = setInterval(function () {
-      desX *= 0.95;
-      desY *= 0.95;
-      tX += desX * 0.1;
-      tY += desY * 0.1;
-      applyTransform(odrag);
-      playSpin(false);
-      if (Math.abs(desX) < 0.5 && Math.abs(desY) < 0.5) {
-        clearInterval(odrag.timer);
-        playSpin(true);
-      }
-    }, 17);
-    this.onpointermove = this.onpointerup = null;
-  };
-
-  return false;
-};
-
-// Zoom con rotellina
-document.onwheel = function(e) {
-  e = e || window.event;
-  var d = e.deltaY || -e.wheelDelta;
-  radius += d * 0.1;
-  init(1);
-};
 }
 
