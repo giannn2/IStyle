@@ -31,7 +31,21 @@
 </div>
 
 <section class="product-section">
-    <h2 class="section-title">Le nostre cover</h2>
+
+<div class="text-container">
+  <p class="text">
+    <span class="text__first">
+      <span class="text__word">Le Nostre</span>
+      <span class="text__bg text__first-bg"></span>
+    </span>
+    <br>
+    <span class="text__second">
+      <span class="text__word">Cover!</span>
+      <span class="text__bg text__second-bg"></span>
+    </span>
+  </p>
+</div>
+
     <div class="cover-gallery">
         <div class="cover-container">
             <div class="cover-image-container" id="cover-bg" style="background-color: #FF9E3F">
@@ -210,6 +224,25 @@ document.onpointerdown = function (e) {
             carousel.classList.remove("hidden");
         }
     });
+
+
+    // envelope animation
+window.onload = function(){
+  var tl = new TimelineLite({delay: 1}),
+    firstBg = document.querySelectorAll('.text__first-bg'),
+    secBg = document.querySelectorAll('.text__second-bg'),
+    word  = document.querySelectorAll('.text__word');
+  
+  tl
+    .to(firstBg, 0.2, {scaleX:1})
+    .to(secBg, 0.2, {scaleX:1})
+    .to(word, 0.1, {opacity:1}, "-=0.1")  
+    .to(firstBg, 0.2, {scaleX:0})
+    .to(secBg, 0.2, {scaleX:0});
+  
+  document.querySelector('.restart').onclick = function() {tl.restart()};
+}
+
 </script>
 
 <%@ include file="Footer.jsp" %>
